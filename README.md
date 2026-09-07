@@ -88,6 +88,9 @@ make setup
 | Package for Windows | `make dist-win` |
 | Build macOS `.app` from local uncommitted source | `make pack-local` |
 | Wipe all local installs + data (fresh start) | `make flush` |
+| Docker (no local toolchain) | `docker compose up` |
+
+> **Windows:** the `make`-based commands above need a POSIX shell — run them inside **WSL2**, or use `docker compose up` directly from PowerShell/CMD instead. Also, never clone this repo into a cloud-sync folder (OneDrive, Dropbox, Google Drive, iCloud Drive) — see [`CLAUDE.md`](CLAUDE.md#windows-and-cloud-sync-folders) for why that corrupts `.git` and how to recover.
 
 > **Fresh start:** `make flush` removes the local runtime (the `cowork-server` uv tool and the `backend/*/.venv`s) and deletes app state in `~/.anton` (provider keys) and `~/.cowork` (database, hermes, projects). Use it to test the from-scratch install flow or recover from a broken install. It prompts for confirmation — pass `FORCE=1` to skip. The next `make setup` or app launch reinstalls everything. ⚠️ This deletes your conversations and saved keys.
 
