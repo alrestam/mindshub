@@ -11,6 +11,32 @@ This repo has 4 submodules:
 | `backend/core_agent` | `mindsdb/anton` | tag-pinned |
 | `backend/data-vault` | `mindsdb/data-vault` | `main` branch |
 
+## Windows and cloud-sync folders
+
+This entire doc — `make`, `~/.cowork`, `~/.local/share/uv/tools`, `ln -s`, `make pack-local` (builds a macOS `.app`) — assumes a POSIX shell and does not run in PowerShell/CMD. On Windows, pick one:
+
+- **WSL2 (recommended for source builds).** Clone and run every command in this doc inside a WSL2 Ubuntu distro — treat it as Linux throughout, including `make setup` / `make dev` / `make dev-web`.
+- **Docker Compose (no `make`/`uv`/Node toolchain on the host).** `docker compose up` from the repo root (equivalently `make docker-build` + `make docker-up` if `make` is available) builds and runs the services declared in `docker-compose.yml` (`docker/api.Dockerfile`, `docker/web.Dockerfile`) from the pinned submodule commits. This does not support the module-branch dev workflow below (`dev.env`, `make use`) — it always builds pinned `main`/tag commits.
+- **Skip building from source.** Use the packaged [`.exe` installer](https://downloads.mindsdb.com/mindshub-cowork/windows/mindshub-cowork-latest.exe) instead (see root `README.md`).
+
+**Never clone or develop this repo inside a cloud-sync folder** (OneDrive, Dropbox, Google Drive, iCloud Drive). These clients can leave large git objects as unsynced "cloud-only" placeholders or truncate a transfer mid-sync, which corrupts `.git`'s object store. Typical symptoms:
+
+```
+$ ls -la .git/objects/pack/
+-rw-r--r-- 1 user user 4194304 ... pack-<sha>.idx
+-rw-r--r-- 1 user user       0 ... pack-<sha>.pack   # 0 bytes — should be large
+$ git status
+fatal: bad object HEAD
+```
+
+A 0-byte `.pack` next to a full-size `.idx` means the pack's contents never synced — every object in it is now unreadable, including `HEAD`. There is no reliable in-place fix; re-clone outside the synced folder:
+
+```bash
+git clone --recurse-submodules https://github.com/mindsdb/minds-platform C:\dev\minds-platform
+```
+
+If you must keep the working copy inside the synced folder, mark it "Always keep on this device" (disables cloud-only placeholders for that folder) before cloning. If corruption has already occurred, `git fsck --full` will confirm which packs are unreadable; deleting the corrupt `pack-*.idx`/`pack-*.pack` pair and running `git fetch origin --prune` only recovers objects still present on the remote — any local unpushed commits inside the corrupt pack are unrecoverable.
+
 ### Clone (fresh)
 
 ```bash
