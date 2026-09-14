@@ -122,7 +122,7 @@ Submodules are configured with `ignore = all`, so your branch work never shows u
 
 ## Development documentation
 
-- **[`docs/INDEX.md`](docs/INDEX.md)** — which document answers which question, plus the ports, refs and destructive commands in one place
+- **[`DOCS.md`](DOCS.md)** — which document answers which question, plus the ports, refs and destructive commands in one place
 - **[`VIBE.md`](VIBE.md)** — the disposable-environment model: `launch → work → keep → destroy`
 - **[`CLAUDE.md`](CLAUDE.md)** — submodules, refs, pins, Windows/WSL2 setup
 - **[`.claude/agents/cowork-dev.md`](.claude/agents/cowork-dev.md)** — the boundaries an agent working in this repo operates under

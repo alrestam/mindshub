@@ -4,10 +4,10 @@ Four documents cover this repo. Each answers a different question — this page 
 
 | Document | Answers |
 |---|---|
-| [`README.md`](../README.md) | What is this, how do I install or build it |
-| [`VIBE.md`](../VIBE.md) | Where may an agent fail safely, and how do I reset when it does |
-| [`CLAUDE.md`](../CLAUDE.md) | How do submodules, refs and pins work; Windows setup |
-| [`.claude/agents/cowork-dev.md`](../.claude/agents/cowork-dev.md) | What an agent may decide on its own, and when it must stop |
+| [`README.md`](README.md) | What is this, how do I install or build it |
+| [`VIBE.md`](VIBE.md) | Where may an agent fail safely, and how do I reset when it does |
+| [`CLAUDE.md`](CLAUDE.md) | How do submodules, refs and pins work; Windows setup |
+| [`.claude/agents/cowork-dev.md`](.claude/agents/cowork-dev.md) | What an agent may decide on its own, and when it must stop |
 
 `VIBE.md` is the environment; `CLAUDE.md` is the codebase; `cowork-dev.md` is the judgment. They are deliberately separate.
 
@@ -15,13 +15,13 @@ Four documents cover this repo. Each answers a different question — this page 
 
 | Task | Start at |
 |---|---|
-| First build from source | [`README.md` § Build from source](../README.md#build-from-source) |
-| Understand the disposable-box model | [`VIBE.md` § The rhythm](../VIBE.md#the-rhythm) |
-| Work on a module branch | [`CLAUDE.md` § Working on module branches](../CLAUDE.md#working-on-module-branches-multi-developer) |
-| Push a submodule change | [`CLAUDE.md` § Make changes and push inside a submodule](../CLAUDE.md#make-changes-and-push-inside-a-submodule) |
-| Move a pin | [`CLAUDE.md` § Working on module branches](../CLAUDE.md#working-on-module-branches-multi-developer) — `make pin` only, and only after the module PR merged |
-| Recover a broken environment | [`VIBE.md` § Recovering from a bad run](../VIBE.md#recovering-from-a-bad-run) |
-| Run an agent against this repo | [`cowork-dev.md`](../.claude/agents/cowork-dev.md) |
+| First build from source | [`README.md` § Build from source](README.md#build-from-source) |
+| Understand the disposable-box model | [`VIBE.md` § The rhythm](VIBE.md#the-rhythm) |
+| Work on a module branch | [`CLAUDE.md` § Working on module branches](CLAUDE.md#working-on-module-branches-multi-developer) |
+| Push a submodule change | [`CLAUDE.md` § Make changes and push inside a submodule](CLAUDE.md#make-changes-and-push-inside-a-submodule) |
+| Move a pin | [`CLAUDE.md` § Working on module branches](CLAUDE.md#working-on-module-branches-multi-developer) — `make pin` only, and only after the module PR merged |
+| Recover a broken environment | [`VIBE.md` § Recovering from a bad run](VIBE.md#recovering-from-a-bad-run) |
+| Run an agent against this repo | [`cowork-dev.md`](.claude/agents/cowork-dev.md) |
 
 ## Ports
 
@@ -33,7 +33,7 @@ Three different ports, three different run paths — the usual source of "why is
 | `docker compose up` | `http://localhost:3000/` | nginx serving a built SPA (`docker/web.Dockerfile`) |
 | either | `http://127.0.0.1:26866/` | FastAPI (`core_api`) |
 
-The Vite path needs `VITE_SKIP_AUTH=true` in `frontend/src/renderer/.env` to bypass the SSO redirect — see [`CLAUDE.md` § Skip Keycloak auth](../CLAUDE.md#skip-keycloak-auth-required-for-local-dev).
+The Vite path needs `VITE_SKIP_AUTH=true` in `frontend/src/renderer/.env` to bypass the SSO redirect — see [`CLAUDE.md` § Skip Keycloak auth](CLAUDE.md#skip-keycloak-auth-required-for-local-dev).
 
 ## Refs
 
@@ -57,7 +57,7 @@ Both are irreversible and both take conversations and provider keys with them. P
 | `make flush` | `cowork-server` uv tool, both `.venv`s, `~/.anton` (keys), `~/.cowork` (database, projects) |
 | `docker compose down -v` | containers **and** the `cowork-data` volume |
 
-`docker compose down` without `-v` keeps the volume — which means a corrupted `cowork.db` follows you into the next "fresh" run. Details in [`VIBE.md`](../VIBE.md#recovering-from-a-bad-run).
+`docker compose down` without `-v` keeps the volume — which means a corrupted `cowork.db` follows you into the next "fresh" run. Details in [`VIBE.md`](VIBE.md#recovering-from-a-bad-run).
 
 ## Layout
 
@@ -65,8 +65,14 @@ Both are irreversible and both take conversations and provider keys with them. P
 README.md                      overview, install, build
 VIBE.md                        disposable-environment model
 CLAUDE.md                      submodules, refs, pins, Windows
-docs/INDEX.md                  this map
+DOCS.md                        this map
 .claude/agents/cowork-dev.md   agent boundaries
+docs/                          the published site — built HTML, deployed to
+                               GitHub Pages by .github/workflows/deploy_docs.yml
+                               on every push to main touching docs/**.
+                               Not a place for contributor markdown: the
+                               workflow uploads the folder as-is, so a .md
+                               file there is served raw, unrendered.
 .devcontainer/devcontainer.json  VS Code container (api.Dockerfile, ports 26866 + 5173)
 docker-compose.yml             api (26866) + web (3000), cowork-data volume
 Makefile                       setup use refs dev dev-web server app pin baseline flush …
