@@ -120,6 +120,13 @@ cp dev.env.example dev.env      # then set REF=feat/my-thing (or per-module API_
 
 Submodules are configured with `ignore = all`, so your branch work never shows up as superproject changes — the parent `git status` stays clean. Pins move **only** via `make pin`. See [`CLAUDE.md`](CLAUDE.md) for the full workflow.
 
+## Development documentation
+
+- **[`DOCS.md`](DOCS.md)** — which document answers which question, plus the ports, refs and destructive commands in one place
+- **[`VIBE.md`](VIBE.md)** — the disposable-environment model: `launch → work → keep → destroy`
+- **[`CLAUDE.md`](CLAUDE.md)** — submodules, refs, pins, Windows/WSL2 setup
+- **[`.claude/agents/cowork-dev.md`](.claude/agents/cowork-dev.md)** — the boundaries an agent working in this repo operates under
+
 ## Deploy anywhere
 
 Cowork is built for flexible deployment — **cloud, VPC, on-prem, air-gapped, and hybrid** infrastructure — so you keep full control over your infrastructure, models, permissions, and data.
