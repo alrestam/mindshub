@@ -122,14 +122,10 @@ Submodules are configured with `ignore = all`, so your branch work never shows u
 
 ## Development documentation
 
-New to the project? Start here:
-
-- **[docs/INDEX.md](docs/INDEX.md)** — Central documentation index with navigation guide
-- **[VIBE.md](VIBE.md)** — Isolated development environment model (`launch → work → keep → destroy`)
-- **[CLAUDE.md](CLAUDE.md)** — Superproject workflow, submodule branch management, Windows/WSL2 setup
-- **[.claude/agents/cowork-dev.md](.claude/agents/cowork-dev.md)** — Agent behavioral rules and boundaries
-
-See [docs/INDEX.md](docs/INDEX.md) for quick navigation by task (getting started, developing a feature, recovering from issues).
+- **[`docs/INDEX.md`](docs/INDEX.md)** — which document answers which question, plus the ports, refs and destructive commands in one place
+- **[`VIBE.md`](VIBE.md)** — the disposable-environment model: `launch → work → keep → destroy`
+- **[`CLAUDE.md`](CLAUDE.md)** — submodules, refs, pins, Windows/WSL2 setup
+- **[`.claude/agents/cowork-dev.md`](.claude/agents/cowork-dev.md)** — the boundaries an agent working in this repo operates under
 
 ## Deploy anywhere
 
